@@ -2,9 +2,11 @@
   "name": "portolio_back",
   "version": "1.0.0",
   "description": "node.js backend using mongodb for my portfolio site",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
     "dev": "nodemon",
+    "build": "tsc",
+    "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
