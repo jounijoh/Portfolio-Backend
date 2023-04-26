@@ -20,14 +20,8 @@ db.once('open', () => console.log('Connected to MongoDB'));
 
 app.use(express.json());
 app.use(cors());
-app.use((req, res, next) => {
-    res.setHeader(
-      'Content-Security-Policy',
-      "default-src 'self'; img-src 'self' https://portfolio-backend-dmiq.onrender.com; script-src 'self' 'unsafe-inline'"
-    );
-    next();
-  });
-  
+
+
 app.use('/api/skills', skillsRouter);
 app.use('/api/about', aboutRouter);
 app.use('/api/projects', projectsRouter);
