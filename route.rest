@@ -1,0 +1,88 @@
+
+
+GET http://localhost:3000/api/skills
+
+###
+
+POST http://localhost:3000/api/skills
+Content-Type: application/json
+
+{
+    "category": "backend",
+    "name": "Express",
+    "description": "I've used Express to build REST APIs for my projects. This website is built with Express and Node.js."
+}
+
+###
+
+POST http://localhost:3000/api/skills/addmany
+Content-Type: application/json
+
+
+###
+
+GET http://localhost:3000/api/skills/643e5b91387a74742d749b50
+
+
+###    
+
+DELETE http://localhost:3000/api/skills/<add ID here>
+
+
+### get all skills grouped by category
+
+GET http://localhost:3000/api/skills/groupbycategory
+
+### post context to about section
+
+POST http://localhost:3000/api/about/addmany
+Content-Type: application/json
+
+{
+  "abouts": [
+  {
+    "contentType": "title",
+    "context": "About",
+    "position": 1
+  },
+  {
+    "contentType": "text",
+    "context": "I started studying Business Information Technology at the Haaga-Helia University of Applied Sciences in 2021. I build this portfolio website to showcase what I've learned and created so far.",
+    "position": 2
+  },
+  {
+    "contentType": "text",
+    "context": "My experience spans across PC and mobile development, dabbling in Java, JavaScript, TypeScript, Node.js, React, and Spring frameworks. I'm always excited to learn something new and put it into action in creative and innovative projects. 🚀",
+    "position": 3
+  },
+  {
+    "contentType": "text",
+    "context": "Feel free to dive into my portfolio and discover my journey so far. If you're up for a chat about opportunities or just want to connect, don't hesitate to drop me a line! 😄",
+    "position": 4
+  }
+  ]
+}
+
+
+### post project to projects section
+
+
+POST http://localhost:3000/api/projects/
+Content-Type: application/json
+
+{
+  "name": "Portfolio Website",
+  "description": "I build This portfolio website with MERN-stack (MongoDB, Express, React, Node.js) and it was built to showcase my skills and projects. It's a work in progress and I'm constantly adding new features and content to it.",
+  "skills": [
+    "React",
+    "TypeScript",
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "Mongoose",
+    "REST API",
+    "CSS",
+    "Styled Components",
+    "Git"
+  ]
+}
