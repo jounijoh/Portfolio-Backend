@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 import mongoose from 'mongoose';
 import express from 'express';
-import skillsRouter from './routes/skills';
-import aboutRouter from './routes/about';
-import projectsRouter from './routes/projects';
+import skillsRouter from '../routes/skills';
+import aboutRouter from '../routes/about';
+import projectsRouter from '../routes/projects';
 import cors from 'cors';
 
 const app = express();
