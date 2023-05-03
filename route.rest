@@ -8,9 +8,9 @@ POST http://localhost:3000/api/skills
 Content-Type: application/json
 
 {
-    "category": "backend",
-    "name": "Express",
-    "description": "I've used Express to build REST APIs for my projects. This website is built with Express and Node.js."
+    "category": "Frontend",
+    "name": "Tailwind CSS",
+    "description": "I've used Tailwind CSS in a few projects and I'm familiar with the basics of it. I'm still learning more about it and I'm excited to use it in future projects."
 }
 
 ###

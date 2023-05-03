@@ -2,6 +2,8 @@ import express from 'express';
 const router = express.Router();
 import { Skill } from '../models/skill';
 
+
+
 // Middleware function for getting skill object by ID
 const getSkill = async (req: any, res: any, next: any) => {
     let skill: any;
@@ -27,29 +29,35 @@ router.get('/', async (req: any, res: any) => {
     }
 })
 
-//get all skills grouped into categories
+//get all skills grouped into categories and soted alphabetically
 router.get('/groupbycategory', async (req: any, res: any) => {
     try {
-        const groupedSkills = await Skill.aggregate([
-            {
-                $group: {
-                    _id: "$category",
-                    skills: {
-                        $push: {
-                            _id: "$_id",
-                            name: "$name",
-                            description: "$description",
-                        },
-                    },
-                },
+      const groupedSkills = await Skill.aggregate([
+        {
+          $group: {
+            _id: "$category",
+            skills: {
+              $push: {
+                _id: "$_id",
+                name: "$name",
+                description: "$description",
+              },
             },
-        ]);
-
-        res.json(groupedSkills);
+          },
+        },
+        {
+          $sort: {
+            _id: 1, // Sort categories alphabetically in ascending order
+          },
+        },
+      ]);
+  
+      res.json(groupedSkills);
     } catch (error: any) {
-        res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
-});
+  });
+
 //Get one skill
 router.get('/:id', getSkill, (req: any, res: any) => {
     res.json(res.skill)
