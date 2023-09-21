@@ -86,3 +86,20 @@ Content-Type: application/json
     "Git"
   ]
 }
+
+### Update Project links
+PATCH http://localhost:3000/api/projects/644934a26a377d81af29f535
+Content-Type: application/json
+
+{
+  "links": [
+    {
+      "title": "GitHub",
+      "url": "https://github.com/jounijoh/Portfolio-Frontend"
+      },
+    {
+      "title": "External link",
+      "url": "https://portfolio-jounijoh.vercel.app/"
+    }
+  ]
+}
