@@ -59,28 +59,26 @@ router.post("/", async (req: Request, res: Response) => {
   let skillIds: mongoose.Types.ObjectId[] = [];
 
   try {
-    if (skills.length > 0 && isValidObjectId(skills[0])) {
-      // If skills contain ObjectIds, check if they exist in the database
-      skillIds = await Promise.all(
-        skills.map(async (id: mongoose.Types.ObjectId) => {
-          const skill = await Skill.findById(id);
-          if (!skill) {
-            throw new Error(`Skill not found with ID: ${id}`);
+    if (skills.length > 0) {
+      for (const skill of skills) {
+        if (isValidObjectId(skill)) {
+          // Check if a skill exists with this ObjectId
+          const foundSkill = await Skill.findById(skill);
+          if (foundSkill) {
+            skillIds.push(foundSkill._id);
+          } else {
+            // If not found by Id, try to find by name
+            const foundSkill = await Skill.findOne({ name: skill });
+            if (!foundSkill) throw new Error(`Skill not found: ${skill}`);
+            skillIds.push(foundSkill._id);
           }
-          return skill._id;
-        })
-      );
-    } else {
-      // If skills contain names, convert them to ObjectIds
-      skillIds = await Promise.all(
-        skills.map(async (name: string) => {
-          const skill = await Skill.findOne({ name });
-          if (!skill) {
-            throw new Error(`Skill not found: ${name}`);
-          }
-          return skill._id;
-        })
-      );
+        } else {
+          // If it's not a valid ObjectId, assume it's a name and find by name
+          const foundSkill = await Skill.findOne({ name: skill });
+          if (!foundSkill) throw new Error(`Skill not found: ${skill}`);
+          skillIds.push(foundSkill._id);
+        }
+      }
     }
 
     const project = new Project({
@@ -88,6 +86,7 @@ router.post("/", async (req: Request, res: Response) => {
       description: req.body.description,
       imageSrc: req.body.imageSrc,
       skills: skillIds,
+      links: req.body.links,
       position: req.body.position,
     });
 
