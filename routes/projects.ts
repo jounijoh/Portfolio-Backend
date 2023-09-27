@@ -127,6 +127,42 @@ router.patch('/:id', getProject, async (req: Request, res: CustomResponse) => {
   }
 });
 
+// Add a skill to a specific project
+router.patch('/:projectId/addSkillByName', async (req, res) => {
+  const { projectId } = req.params;
+  const { skillName } = req.body;
+
+  try {
+    // Find the project by ID
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    // Find the skill by name
+    const skill = await Skill.findOne({ name: skillName });
+    if (!skill) {
+      return res.status(404).json({ message: 'Skill not found' });
+    }
+
+    // Check if the skill is already associated with the project
+    if (project.skills.includes(skill._id)) {
+      return res.status(400).json({ message: 'Skill is already associated with the project' });
+    }
+
+    // Add the skill to the project and save the project
+    project.skills.push(skill._id);
+    await project.save();
+
+    // Send the updated project as a response
+    res.json(project);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+
 // Delete one project
 router.delete('/:id', getProject, async (req: Request, res: CustomResponse) => {
   try {
